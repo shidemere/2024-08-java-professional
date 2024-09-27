@@ -12,7 +12,7 @@ import java.util.*;
 public class TestRunner {
     private static int beforeSuiteCounter = 0;
     private static int afterSuiteCounter = 0;
-    private static final HashMap<Integer, List<Method>> testPriorityHashMap = new HashMap<>();
+    private static final Map<Integer, List<Method>> testPriorityHashMap = new HashMap<>();
     private static final List<Method> activeTest = new ArrayList<>();
     private static final Map<Method, String> disabledTest = new HashMap<>();
 
@@ -24,12 +24,12 @@ public class TestRunner {
         Method afterMethod = null;
         for (Method method : activeTest) {
             if (method.isAnnotationPresent(BeforeSuite.class)) {
-                processBeforeSuite(method, ++beforeSuiteCounter);
+                processBeforeSuite(method, !Objects.isNull(beforeMethod));
                 beforeMethod = method;
             } else if (method.isAnnotationPresent(Test.class)) {
                 processTest(method);
             } else if (method.isAnnotationPresent(AfterSuite.class)) {
-                processAfterSuite(method, ++afterSuiteCounter);
+                processAfterSuite(method, !Objects.isNull(afterMethod));
                 afterMethod = method;
             }
         }
@@ -49,7 +49,7 @@ public class TestRunner {
                 try {
                     method.invoke(null);
                     passedTests++;
-                } catch (IllegalArgumentException e) {
+                } catch (Exception e) {
                     failedTests++;
                     System.err.println(method.getName() + ": " + e.getMessage());
                 }
@@ -83,15 +83,15 @@ public class TestRunner {
     /**
      * Проверка корректности аннотации {@link BeforeSuite}
      */
-    private static void processBeforeSuite(Method method, int counter) {
+    private static void processBeforeSuite(Method method, boolean alreadyExist) {
         /* Проверка что аннотация встречается 1 раз */
-        if (counter != 1) {
-            System.err.println("Аннотация @BeforeSuite должна быть использована 1 раз на класс");
+        if (alreadyExist) {
+            throw new IllegalArgumentException("Аннотация @BeforeSuite должна быть использована 1 раз на класс");
         }
 
         /* Проверка что аннотации не встречаются на одном и том же месте */
         if (method.isAnnotationPresent(AfterSuite.class) || method.isAnnotationPresent(Test.class)) {
-            System.err.println("Аннотация @BeforeSuite не может стоять в паре с @AfterSuite или @Test");
+            throw new IllegalArgumentException("Аннотация @BeforeSuite не может стоять в паре с @AfterSuite или @Test");
         }
     }
 
@@ -119,9 +119,9 @@ public class TestRunner {
     /**
      * Проверка корректности аннотации {@link AfterSuite}
      */
-    private static void processAfterSuite(Method method, int counter) {
+    private static void processAfterSuite(Method method, boolean alreadyExist) {
         /* Проверка что аннотация встречается 1 раз */
-        if (counter != 1) {
+        if (alreadyExist) {
             throw new IllegalArgumentException("Аннотация @BeforeSuite должна быть использована 1 раз на класс");
         }
 
