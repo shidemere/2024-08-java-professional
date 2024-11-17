@@ -10,7 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/01_ReflectionAPI" />
-            <option value="$PROJECT_DIR$/02_unit_tests" />
           </set>
         </option>
       </GradleProjectSettings>
