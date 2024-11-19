@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/01_ReflectionAPI" />
             <option value="$PROJECT_DIR$/02_UnitTests" />
+            <option value="$PROJECT_DIR$/03_StreamAPI" />
           </set>
         </option>
       </GradleProjectSettings>
