@@ -1,4 +1,5 @@
 rootProject.name = '2024-08-java-professional'
 include '01_ReflectionAPI'
+include '02_UnitTests'
 
 
