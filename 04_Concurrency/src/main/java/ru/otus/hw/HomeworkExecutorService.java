@@ -33,12 +33,13 @@ public class HomeworkExecutorService implements Executor {
         if (isShutdown.get()) {
             throw new IllegalStateException();
         }
-        tasks.add(command);
+        tasks.addLast(command);
         notifyAll();
     }
 
     public void shutdown() {
         isShutdown.compareAndSet(false, true);
+        notifyAll();
     }
 
     private synchronized Optional<Runnable> getNextTask() {
