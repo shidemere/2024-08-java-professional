@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/01_ReflectionAPI" />
             <option value="$PROJECT_DIR$/02_UnitTests" />
             <option value="$PROJECT_DIR$/03_StreamAPI" />
+            <option value="$PROJECT_DIR$/04_Concurrency" />
           </set>
         </option>
       </GradleProjectSettings>
