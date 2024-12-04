@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/02_UnitTests" />
             <option value="$PROJECT_DIR$/03_StreamAPI" />
             <option value="$PROJECT_DIR$/04_Concurrency" />
+            <option value="$PROJECT_DIR$/05_IteratorPattern" />
           </set>
         </option>
       </GradleProjectSettings>
