@@ -3,6 +3,7 @@ package ru.otus.hw;
 import lombok.AllArgsConstructor;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @AllArgsConstructor
@@ -14,17 +15,13 @@ public class Box {
 
     // expected: "red0", "green0", "blue0", "magenta0", "red1", "green1", "blue1", "magenta1",...
     public Iterator<String> getSmallFirstIterator() {
-
         return new Iterator<>() {
-            private int iteratorCounter = 0;
-            Iterator<String> redIterator = red.iterator();
-            Iterator<String> greenIterator = green.iterator();
-            Iterator<String> blueIterator = blue.iterator();
-            Iterator<String> magentaIterator = magenta.iterator();
 
+            private int iteratorCounter = 0;
+            List<Iterator<String>> iterators = List.of(red.iterator(), green.iterator(), blue.iterator(), magenta.iterator());
             @Override
             public boolean hasNext() {
-                return redIterator.hasNext() || greenIterator.hasNext() || blueIterator.hasNext() || magentaIterator.hasNext();
+                return iterators.get(0).hasNext() || iterators.get(1).hasNext() || iterators.get(2).hasNext() || iterators.get(3).hasNext();
             }
 
             @Override
@@ -35,26 +32,26 @@ public class Box {
                 String result;
                 switch (iteratorCounter) {
                     case 0:
-                        if (redIterator.hasNext()) {
-                            result = redIterator.next();
+                        if (iterators.get(0).hasNext()) {
+                            result = iterators.get(0).next();
                             iteratorCounter++;
                             break;
                         }
                     case 1:
-                        if (greenIterator.hasNext()) {
-                            result = greenIterator.next();
+                        if (iterators.get(1).hasNext()) {
+                            result = iterators.get(1).next();
                             iteratorCounter++;
                             break;
                         }
                     case 2:
-                        if (blueIterator.hasNext()) {
-                           result =  blueIterator.next();
+                        if (iterators.get(2).hasNext()) {
+                           result =  iterators.get(2).next();
                             iteratorCounter++;
                             break;
                         }
                     case 3:
-                        if (magentaIterator.hasNext()) {
-                            result = magentaIterator.next();
+                        if (iterators.get(3).hasNext()) {
+                            result = iterators.get(3).next();
                             iteratorCounter = 0;
                             break;
                         }
@@ -69,14 +66,10 @@ public class Box {
     public Iterator<String> getColorFirstIterator() {
         return new Iterator<>() {
             private int iteratorCounter = 0;
-            Iterator<String> redIterator = red.iterator();
-            Iterator<String> greenIterator = green.iterator();
-            Iterator<String> blueIterator = blue.iterator();
-            Iterator<String> magentaIterator = magenta.iterator();
-
+            List<Iterator<String>> iterators = List.of(red.iterator(), green.iterator(), blue.iterator(), magenta.iterator());
             @Override
             public boolean hasNext() {
-                return redIterator.hasNext() || greenIterator.hasNext() || blueIterator.hasNext() || magentaIterator.hasNext();
+                return iterators.get(0).hasNext() || iterators.get(1).hasNext() || iterators.get(2).hasNext() || iterators.get(3).hasNext();
             }
 
             @Override
@@ -87,29 +80,29 @@ public class Box {
                 String result;
                 switch (iteratorCounter) {
                     case 0:
-                        if (redIterator.hasNext()) {
-                            result = redIterator.next();
+                        if (iterators.get(0).hasNext()) {
+                            result = iterators.get(0).next();
                             break;
                         } else {
                             iteratorCounter++;
                         }
                     case 1:
-                        if (greenIterator.hasNext()) {
-                            result = greenIterator.next();
+                        if (iterators.get(1).hasNext()) {
+                            result = iterators.get(1).next();
                             break;
                         } else {
                             iteratorCounter++;
                         }
                     case 2:
-                        if (blueIterator.hasNext()) {
-                            result =  blueIterator.next();
+                        if (iterators.get(2).hasNext()) {
+                            result =  iterators.get(2).next();
                             break;
                         } else {
                             iteratorCounter++;
                         }
                     case 3:
-                        if (magentaIterator.hasNext()) {
-                            result = magentaIterator.next();
+                        if (iterators.get(3).hasNext()) {
+                            result = iterators.get(3).next();
                             break;
                         }
                     default: throw new NoSuchElementException();
