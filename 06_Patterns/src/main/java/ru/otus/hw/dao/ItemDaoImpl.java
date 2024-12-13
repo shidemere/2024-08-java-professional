@@ -11,7 +11,7 @@ public class ItemDaoImpl implements ItemDao {
     private final Map<Long, Item> items = new HashMap<>();
     @Override
     public Item findById(long id) {
-        Item item = Optional.of(items.get(id)).orElseThrow(EntityNotFoundException::new);
+        Item item = Optional.ofNullable(items.get(id)).orElseThrow(() -> new EntityNotFoundException("Item not found with id: " + id));
         System.out.println("Чтение из БД = " + item.toString());
         return item;
     }

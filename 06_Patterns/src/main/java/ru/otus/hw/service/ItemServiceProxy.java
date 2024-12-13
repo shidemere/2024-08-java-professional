@@ -9,11 +9,13 @@ import ru.otus.hw.model.Item;
  */
 public class ItemServiceProxy implements ItemService {
     private ItemServiceImpl itemService;
+
+    public ItemServiceProxy(ItemServiceImpl itemService) {
+        this.itemService = itemService;
+    }
+
     @Override
     public Item create(Item item) {
-        if (itemService == null) {
-            itemService = new ItemServiceImpl();
-        }
         CustomDataSource.getInstance().beginTransaction();
         Item response = itemService.create(item);
         CustomDataSource.getInstance().closeTransaction();

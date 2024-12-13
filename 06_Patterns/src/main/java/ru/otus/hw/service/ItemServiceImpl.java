@@ -11,7 +11,7 @@ public class ItemServiceImpl implements ItemService {
     private final ItemDao itemDao = new ItemDaoImpl();
 
     public static ItemService getInstance() {
-        return new ItemServiceProxy();
+        return new ItemServiceProxy(new ItemServiceImpl());
     }
 
     @Override
