@@ -4,4 +4,5 @@ include '02_UnitTests'
 include '03_StreamAPI'
 include '04_Concurrency'
 include '05_IteratorPattern'
+include '07_JDBC'
 
