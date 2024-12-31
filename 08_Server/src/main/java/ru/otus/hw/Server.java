@@ -2,6 +2,8 @@ package ru.otus.hw;
 
 
 import lombok.extern.log4j.Log4j2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,6 +16,7 @@ import java.util.concurrent.Executors;
  */
 public class Server {
 
+    private static Logger logger = LoggerFactory.getLogger(Server.class);
     private final int port;
     private final ExecutorService connectionsPool;
     private final int maxRequestSize;
@@ -39,7 +42,7 @@ public class Server {
                 new RequestHandler(connectionsPool, connection, dispatcher, maxRequestSize);
             }
         } catch (IOException e) {
-            System.err.println("Could not listen on port: " + port);
+            logger.error("Could not listen on port: {}", port);
         } finally {
             connectionsPool.shutdown();
         }

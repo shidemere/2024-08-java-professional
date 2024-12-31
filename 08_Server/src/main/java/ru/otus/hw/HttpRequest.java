@@ -1,6 +1,8 @@
 package ru.otus.hw;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.otus.hw.exception.HttpFormatException;
 import ru.otus.hw.exception.RequestSizeException;
 
@@ -16,7 +18,7 @@ import java.util.Map;
  * Входящий байтовый поток формируется в объект.
  */
 public class HttpRequest {
-
+    private static Logger logger = LoggerFactory.getLogger(HttpRequest.class);
     private String host;
     private String endpoint;
     private HttpMethod method;
@@ -32,7 +34,7 @@ public class HttpRequest {
             this.maxContentLength = maxContentLength;
             parse(request);
         } catch (IOException e) {
-            System.err.println("IOException in Building HttpRequest: " + e.getMessage());
+            logger.error("IOException in Building HttpRequest: {}", e.getMessage());
         }
     }
 
