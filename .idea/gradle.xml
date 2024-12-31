@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/03_StreamAPI" />
             <option value="$PROJECT_DIR$/04_Concurrency" />
             <option value="$PROJECT_DIR$/05_IteratorPattern" />
+            <option value="$PROJECT_DIR$/06_Patterns" />
           </set>
         </option>
       </GradleProjectSettings>
