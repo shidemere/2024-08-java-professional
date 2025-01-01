@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'ru.otus.hw'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'ch.qos.logback:logback-classic:1.1.7'
+}
+
+tasks.register('copyDependencies', Copy) {
+    dependsOn 'build'
+    from configurations.runtimeClasspath
+    into layout.buildDirectory.dir('lib')
+}
+
+war {
+    archiveFileName.set('09_JavaEnterprise.war') // Правильная настройка имени файла
+}
+
+test {
+    useJUnitPlatform()
+}
