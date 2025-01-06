@@ -23,8 +23,9 @@ public class Configuration {
     private void getProperties() throws IOException {
         properties = new Properties();
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream stream = loader.getResourceAsStream(CONFIG_PATH);
-        properties.load(stream);
+        try (InputStream stream = loader.getResourceAsStream(CONFIG_PATH)) {
+            properties.load(stream);
+        }
     }
 
     public String getProperty(String name) {

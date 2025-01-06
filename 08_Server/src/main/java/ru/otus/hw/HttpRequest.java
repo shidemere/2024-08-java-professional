@@ -83,14 +83,14 @@ public class HttpRequest {
      */
     private String readLine(BufferedReader reader) throws IOException {
         String line = reader.readLine();
-        if (line != null) {
-            requestContentLength += line.getBytes().length;
-            if (requestContentLength > maxContentLength) {
-                throw new RequestSizeException("Request size > " + maxContentLength);
-            }
-            return line;
+        if (line == null) {
+            return null;
         }
-        return null;
+        requestContentLength += line.getBytes().length;
+        if (requestContentLength > maxContentLength) {
+            throw new RequestSizeException("Request size > " + maxContentLength);
+        }
+        return line;
     }
 
     private void setMethod(String requestLine) {
@@ -126,7 +126,7 @@ public class HttpRequest {
     }
 
     private void setHost(String requestLine) {
-        this.host= requestLine.substring(requestLine.indexOf(" "));
+        this.host = requestLine.split(" ")[1];
     }
 
     private void addHeaderParameter(String header) {
