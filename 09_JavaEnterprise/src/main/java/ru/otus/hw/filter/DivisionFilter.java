@@ -18,7 +18,7 @@ public class DivisionFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws ServletException, IOException {
         String firstValue = servletRequest.getParameter("first");
         String secondValue = servletRequest.getParameter("second");
-        logger.info("Register request in {} with values {{}, {}}", DivisionServlet.class.getSimpleName(), firstValue, secondValue);
+        logger.info("Register request in {} with values [{}, {}]", DivisionServlet.class.getSimpleName(), firstValue, secondValue);
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

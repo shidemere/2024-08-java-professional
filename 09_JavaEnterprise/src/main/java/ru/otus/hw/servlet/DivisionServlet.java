@@ -14,23 +14,30 @@ public class DivisionServlet extends HttpServlet {
     // http://localhost:8080/09_JavaEnterprise/calc?first=100&second=10
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        double first = Double.parseDouble(req.getParameter("first"));
-        double second = Double.parseDouble(req.getParameter("second"));
+        double first;
+        double second;
+        try {
+            first = Double.parseDouble(req.getParameter("first"));
+            second = Double.parseDouble(req.getParameter("second"));
+        } catch (NumberFormatException e) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input");
+            return;
+        }
         resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-        String out = String.format("""
-                <!DOCTYPE html>
-                <html lang="en">
-                  <head>
-                    <meta charset="UTF-8">
-                    <title>Result</title>
-                  </head>
-                  <body>
-                        <h1>%2f</h1>
-                  </body>
-                </html>
-                """, first / second);
-        writer.println(out);
-        writer.close();
+        try (PrintWriter writer = resp.getWriter()) {
+            String out = String.format("""
+                    <!DOCTYPE html>
+                    <html lang="en">
+                      <head>
+                        <meta charset="UTF-8">
+                        <title>Result</title>
+                      </head>
+                      <body>
+                            <h1>%2f</h1>
+                      </body>
+                    </html>
+                    """, first / second);
+            writer.println(out);
+        }
     }
 }

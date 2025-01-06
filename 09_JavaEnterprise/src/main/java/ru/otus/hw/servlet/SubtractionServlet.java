@@ -17,20 +17,20 @@ public class SubtractionServlet extends HttpServlet {
         int first = Integer.parseInt(req.getParameter("first"));
         int second = Integer.parseInt(req.getParameter("second"));
         resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-        String out = String.format("""
-                <!DOCTYPE html>
-                <html lang="en">
-                  <head>
-                    <meta charset="UTF-8">
-                    <title>Result</title>
-                  </head>
-                  <body>
-                        <h1>%d</h1>
-                  </body>
-                </html>
-                """, first - second);
-        writer.println(out);
-        writer.close();
+        try (PrintWriter writer = resp.getWriter()) {
+            String out = String.format("""
+                    <!DOCTYPE html>
+                    <html lang="en">
+                      <head>
+                        <meta charset="UTF-8">
+                        <title>Result</title>
+                      </head>
+                      <body>
+                            <h1>%d</h1>
+                      </body>
+                    </html>
+                    """, first - second);
+            writer.println(out);
+        }
     }
 }
