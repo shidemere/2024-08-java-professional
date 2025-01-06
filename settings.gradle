@@ -6,4 +6,5 @@ include '04_Concurrency'
 include '05_IteratorPattern'
 include '06_Patterns'
 include '07_JDBC'
+include '10_SpringContext'
 
