@@ -15,7 +15,9 @@
             <option value="$PROJECT_DIR$/04_Concurrency" />
             <option value="$PROJECT_DIR$/05_IteratorPattern" />
             <option value="$PROJECT_DIR$/06_Patterns" />
+            <option value="$PROJECT_DIR$/07_JDBC" />
             <option value="$PROJECT_DIR$/08_Server" />
+            <option value="$PROJECT_DIR$/09_JavaEnterprise" />
           </set>
         </option>
       </GradleProjectSettings>
