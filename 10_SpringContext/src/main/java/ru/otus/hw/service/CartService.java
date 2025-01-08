@@ -1,34 +1,16 @@
 package ru.otus.hw.service;
 
-import org.springframework.stereotype.Service;
 import ru.otus.hw.model.Cart;
 import ru.otus.hw.model.Product;
 
 import java.util.List;
 
-@Service
-public class CartService {
+public interface CartService {
+    Cart addProductToCart(Product product, Cart cart);
 
-    public Cart addProductToCart(Product product, Cart cart) {
-        cart.getProducts().add(product);
-        return cart;
-    }
+    Cart removeProductFromCart(Product product, Cart cart);
 
-    public Cart removeProductFromCart(Product product, Cart cart) {
-        cart.getProducts().remove(product);
-        return cart;
-    }
+    Cart addProductsToCart(List<Product> list, Cart cart);
 
-    public Cart addProductsToCart(List<Product> list, Cart cart) {
-        cart.getProducts().addAll(list);
-        return cart;
-    }
-
-    public Cart removeProductsFromCart(List<Product> list, Cart cart) {
-        List<Product> products = cart.getProducts();
-        products.removeAll(list);
-        return cart;
-    }
-
-
+    Cart removeProductsFromCart(List<Product> list, Cart cart);
 }

@@ -38,6 +38,9 @@ public class ProductRepository {
     }
 
     public Product findById(int id) {
-        return Optional.of(products.get(id)).orElseThrow(() -> new EntityNotFoundException("No product found with id " + id));
+        return products.stream()
+                .filter(product -> product.getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("No product found with id " + id));
     }
 }
