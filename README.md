@@ -35,3 +35,7 @@
 ### Web сервер // ДЗ 9
 
 > Находится в модуле `09_JavaEnterprise`
+
+> ### Spring Context // ДЗ 10
+
+> Находится в модуле `10_SpringContext`
