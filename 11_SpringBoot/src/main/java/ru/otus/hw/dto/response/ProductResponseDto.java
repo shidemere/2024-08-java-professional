@@ -3,6 +3,8 @@ package ru.otus.hw.dto.response;
 import lombok.*;
 import ru.otus.hw.model.Product;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class ProductResponseDto {
         return ProductResponseDto.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .price(product.getPrice())
+                .price(product.getPrice().doubleValue())
                 .build();
     }
 }

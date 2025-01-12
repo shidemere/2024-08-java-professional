@@ -19,8 +19,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponseDto create(ProductCreateRequestDto product) {
         Product entity = ProductCreateRequestDto.toEntity(product);
-        Product findedProduct = productRepository.create(entity);
-        return ProductResponseDto.toDto(findedProduct);
+        Product createdProduct  = productRepository.create(entity);
+        return ProductResponseDto.toDto(createdProduct );
     }
 
     @Override
