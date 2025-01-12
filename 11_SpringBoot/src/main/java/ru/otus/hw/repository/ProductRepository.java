@@ -27,7 +27,7 @@ public class ProductRepository {
 
     public Product update(Product product) {
         int index = (int) product.getId();
-        Product findedProduct = productList.get(index);
+        Product findedProduct = getProductById(index);
         findedProduct.setName(product.getName());
         findedProduct.setPrice(product.getPrice());
         return findedProduct;
