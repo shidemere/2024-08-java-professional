@@ -25,8 +25,8 @@ public class Main {
                 .address(address)
                 .phones(phones)
                 .build();
-        address.setClient(client);
-        phones.forEach(phone -> phone.setClient(client));
+        client.getAddress().setClient(client);
+        client.getPhones().forEach(phone -> phone.setClient(client));
         clientRepository.create(client);
 
         System.out.println("Чтение");
@@ -34,7 +34,6 @@ public class Main {
         Client findedById = clientRepository.findById(1L);
         System.out.println(findedById);
 
-        // test update
         System.out.println("Обновление");
         client.setName("Бамблби");
         client.setAddress(new Address("Планета Нибиру"));
@@ -42,7 +41,6 @@ public class Main {
         phone.setNumber("7777777");
         clientRepository.update(client);
 
-        // test remove
         System.out.println("Удаление");
         clientRepository.delete(findedById);
 

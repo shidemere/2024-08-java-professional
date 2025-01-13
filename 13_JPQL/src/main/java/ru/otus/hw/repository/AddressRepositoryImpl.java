@@ -13,10 +13,16 @@ public class AddressRepositoryImpl implements AddressRepository {
     @Override
     public Address create(Address address) {
         EntityManager entityManager = JPAConfiguration.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(address);
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(address);
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            entityManager.getTransaction().rollback();
+            throw e;
+        } finally {
+            entityManager.close();
+        }
         return address;
 
     }
@@ -37,15 +43,22 @@ public class AddressRepositoryImpl implements AddressRepository {
     @Override
     public Address update(Address address) {
         EntityManager em = JPAConfiguration.getEntityManager();
-        em.getTransaction().begin();
-        Address findedAddress = findById(address.getId());
-        if (Objects.isNull(findedAddress)) {
-            throw new EntityNotFoundException("Address not found");
+        Address findedAddress = null;
+        try {
+            em.getTransaction().begin();
+            findedAddress = findById(address.getId());
+            if (Objects.isNull(findedAddress)) {
+                throw new EntityNotFoundException("Address not found");
+            }
+            findedAddress.setStreet(address.getStreet());
+            findedAddress.setClient(address.getClient());
+            em.merge(findedAddress);
+            em.getTransaction().commit();
+        } catch (EntityNotFoundException e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
         }
-        findedAddress.setStreet(address.getStreet());
-        findedAddress.setClient(address.getClient());
-        em.merge(findedAddress);
-        em.getTransaction().commit();
         return findedAddress;
 
     }
@@ -53,12 +66,18 @@ public class AddressRepositoryImpl implements AddressRepository {
     @Override
     public void delete(Address address) {
         EntityManager em = JPAConfiguration.getEntityManager();
-        em.getTransaction().begin();
-        Address findedAddress = em.find(Address.class, address.getId());
-        if (findedAddress != null) {
-            em.remove(findedAddress);
+        try {
+            em.getTransaction().begin();
+            Address findedAddress = em.find(Address.class, address.getId());
+            if (findedAddress != null) {
+                em.remove(findedAddress);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
         }
-        em.getTransaction().commit();
 
     }
 }
