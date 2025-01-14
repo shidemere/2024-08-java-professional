@@ -1,15 +1,15 @@
 package ru.otus.hw.service;
 
 import ru.otus.hw.dto.request.ProductRequestDto;
-import ru.otus.hw.dto.response.ProductResponseDto;
+import ru.otus.hw.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    ProductResponseDto create(ProductRequestDto product);
-    List<ProductResponseDto> findAll();
-    ProductResponseDto findById(int id);
-    ProductResponseDto update(ProductRequestDto product);
+    Product create(ProductRequestDto product);
+    List<Product> findAll();
+    Product findById(int id);
+    Product update(ProductRequestDto product);
     void delete(long id);
 }

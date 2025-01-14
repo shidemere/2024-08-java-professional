@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.hw.dto.request.ProductRequestDto;
 import ru.otus.hw.dto.response.ProductResponseDto;
+import ru.otus.hw.model.Product;
 import ru.otus.hw.service.ProductService;
 
 import java.util.List;
@@ -16,22 +17,28 @@ public class ProductController {
 
     @PostMapping("/product")
     public ProductResponseDto createProduct(@RequestBody ProductRequestDto product) {
-        return productService.create(product);
+        Product createdProduct = productService.create(product);
+        return ProductResponseDto.toDto(createdProduct);
     }
 
     @PutMapping("/product")
     public ProductResponseDto updateProduct(@RequestBody ProductRequestDto product) {
-        return productService.update(product);
+        Product updatedProduct = productService.update(product);
+        return ProductResponseDto.toDto(updatedProduct);
     }
 
     @GetMapping("/product/{id}")
     public ProductResponseDto getProduct(@PathVariable Integer id) {
-        return productService.findById(id);
+        Product product = productService.findById(id);
+        return ProductResponseDto.toDto(product);
     }
 
     @GetMapping("/product")
     public List<ProductResponseDto> getProducts() {
-        return productService.findAll();
+        List<Product> productsList = productService.findAll();
+        return productsList.stream()
+                .map(ProductResponseDto::toDto)
+                .toList();
     }
 
     @DeleteMapping("/product/{id}")

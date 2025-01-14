@@ -3,7 +3,6 @@ package ru.otus.hw.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.hw.dto.request.ProductRequestDto;
-import ru.otus.hw.dto.response.ProductResponseDto;
 import ru.otus.hw.exception.EntityNotFoundException;
 import ru.otus.hw.model.Product;
 import ru.otus.hw.repository.ProductRepository;
@@ -17,33 +16,27 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public ProductResponseDto create(ProductRequestDto product) {
+    public Product create(ProductRequestDto product) {
         Product entity = ProductRequestDto.toEntity(product);
         entity.setNew(true);
-        Product createdProduct = productRepository.save(entity);
-        return ProductResponseDto.toDto(createdProduct);
+        return productRepository.save(entity);
     }
 
     @Override
-    public List<ProductResponseDto> findAll() {
-        List<Product> productsList = productRepository.findAll();
-        return productsList.stream()
-                .map(ProductResponseDto::toDto)
-                .toList();
+    public List<Product> findAll() {
+        return productRepository.findAll();
     }
 
     @Override
-    public ProductResponseDto findById(int id) {
-        Product product = productRepository.findById((long) id).orElseThrow(() -> new EntityNotFoundException("Not found entity with id" + id));
-        return ProductResponseDto.toDto(product);
+    public Product findById(int id) {
+        return productRepository.findById((long) id).orElseThrow(() -> new EntityNotFoundException("Not found entity with id" + id));
     }
 
     @Override
-    public ProductResponseDto update(ProductRequestDto product) {
+    public Product update(ProductRequestDto product) {
         Product entity = ProductRequestDto.toEntity(product);
         entity.setNew(false);
-        Product updatedProduct = productRepository.save(entity);
-        return ProductResponseDto.toDto(updatedProduct);
+        return productRepository.save(entity);
     }
 
     @Override
