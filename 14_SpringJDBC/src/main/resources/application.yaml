@@ -1,0 +1,20 @@
+server:
+  port: 8899
+  servlet:
+    context-path: /app
+spring:
+  flyway:
+    enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:appdb;MODE=PostgreSQL
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: false
+logging:
+  level:
+    org.springframework.jdbc.core.JdbcTemplate: TRACE

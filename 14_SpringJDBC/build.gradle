@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'ru.otus.hw'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc:3.4.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.4.0'
+    implementation 'org.flywaydb:flyway-core:11.1.0'
+    runtimeOnly 'com.h2database:h2:2.2.224'
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.36'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs << '-parameters'
+}
+
+test {
+    useJUnitPlatform()
+}
